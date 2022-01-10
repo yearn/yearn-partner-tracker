@@ -24,7 +24,6 @@ contract YearnPartnerTracker {
     function deposit(address vault, address partnerId) external returns (uint256){
         VaultAPI v = VaultAPI(vault);
         IERC20 want = IERC20(v.token());
-        isRegistered(address(want), vault);
 
         uint256 amount = want.balanceOf(msg.sender);
 
@@ -35,7 +34,6 @@ contract YearnPartnerTracker {
     function deposit(address vault, address partnerId, uint256 amount) external returns (uint256){
         VaultAPI v = VaultAPI(vault);
         IERC20 want = IERC20(v.token());
-        isRegistered(address(want), vault);
 
         _internalDeposit(v, want, partnerId, amount);
     }
@@ -53,20 +51,6 @@ contract YearnPartnerTracker {
         //we use vault tokens and not deposit amount to track deposits. ie what percent of the tvl is referred
         referredBalance[partnerId][address(v)][msg.sender] = referredBalance[partnerId][address(v)][msg.sender].add(receivedShares);
         emit ReferredBalanceIncreased(partnerId, address(v), msg.sender, receivedShares, referredBalance[partnerId][address(v)][msg.sender]);
-    }
-
-    //we only check up to 20
-    function isRegistered(address token, address vault) public view {
-        for(uint i = 0; i < 20; i++){
-            address result = registry.vaults(token, i);
-
-            if(result == vault){
-                break; //success
-            }
-
-            require(result != address(0), "Vault not endorsed");
-
-        }
     }
 
 }
