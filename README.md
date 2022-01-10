@@ -1,6 +1,6 @@
 # Yearn V2 Partner Tracker
 
-This contract is an accounting contract for tracking yearn deposits from partners. It is non-custodial and only works with vaults endorsed by v2.registry.ychad.eth
+This contract is a non-custodial accounting contract for tracking yearn deposits from partners.
 
 To work out how much traffic an partner has generated we compare the balance stored in the accounting contract with the yvault tokens in their wallet.
 
