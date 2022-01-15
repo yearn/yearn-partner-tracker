@@ -21,7 +21,7 @@ contract YearnPartnerTracker {
 
         uint256 amount = want.balanceOf(msg.sender);
 
-        _internalDeposit(v, want, partnerId, amount);
+        return _internalDeposit(v, want, partnerId, amount);
 
     }
 
@@ -29,10 +29,10 @@ contract YearnPartnerTracker {
         VaultAPI v = VaultAPI(vault);
         IERC20 want = IERC20(v.token());
 
-        _internalDeposit(v, want, partnerId, amount);
+        return _internalDeposit(v, want, partnerId, amount);
     }
 
-    function _internalDeposit(VaultAPI v, IERC20 want, address partnerId, uint256 amount) internal{
+    function _internalDeposit(VaultAPI v, IERC20 want, address partnerId, uint256 amount) internal returns (uint256){
 
         if(want.allowance(address(this), address(v)) < amount){
             want.safeApprove(address(v), 0);
@@ -45,6 +45,8 @@ contract YearnPartnerTracker {
         //we use vault tokens and not deposit amount to track deposits. ie what percent of the tvl is referred
         referredBalance[partnerId][address(v)][msg.sender] = referredBalance[partnerId][address(v)][msg.sender].add(receivedShares);
         emit ReferredBalanceIncreased(partnerId, address(v), msg.sender, receivedShares, referredBalance[partnerId][address(v)][msg.sender]);
+
+        return receivedShares;
     }
 
 }
