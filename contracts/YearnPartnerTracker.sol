@@ -12,9 +12,19 @@ contract YearnPartnerTracker {
     using Address for address;
     using SafeMath for uint256;
 
+    /// @notice An event thats emitted when a depositers referred balance increases
     event ReferredBalanceIncreased(address indexed partnerId, address indexed vault, address indexed depositer, uint amountAdded, uint totalDeposited);
+
+    /// @notice Mapping of partner -> depositer -> vault. Each partner can have multiple depositers who deposit to multiple vaults
     mapping (address => mapping (address => mapping(address => uint256))) public referredBalance;
 
+
+     /**
+     * @notice Deposit into a vault the full balance of depositer
+     * @param vault The address of the vault
+     * @param partnerId The address of the partner who has referred this deposit
+     * @return The number of yVault tokens received
+     */
     function deposit(address vault, address partnerId) external returns (uint256){
         VaultAPI v = VaultAPI(vault);
         IERC20 want = IERC20(v.token());
@@ -25,6 +35,13 @@ contract YearnPartnerTracker {
 
     }
 
+    /**
+     * @notice Deposit into a vault the specified amount from depositer
+     * @param vault The address of the vault
+     * @param partnerId The address of the partner who has referred this deposit
+     * @param amount The amount to deposit
+     * @return The number of yVault tokens received
+     */
     function deposit(address vault, address partnerId, uint256 amount) external returns (uint256){
         VaultAPI v = VaultAPI(vault);
         IERC20 want = IERC20(v.token());
@@ -34,11 +51,13 @@ contract YearnPartnerTracker {
 
     function _internalDeposit(VaultAPI v, IERC20 want, address partnerId, uint256 amount) internal returns (uint256){
 
+        // if there is not enough allowance we set then set them
         if(want.allowance(address(this), address(v)) < amount){
             want.safeApprove(address(v), 0);
             want.safeApprove(address(v), type(uint256).max);
         }
 
+        // pull the required amount from depositer
         want.safeTransferFrom(msg.sender, address(this), amount);
         uint256 receivedShares = v.deposit(amount, msg.sender);
 
