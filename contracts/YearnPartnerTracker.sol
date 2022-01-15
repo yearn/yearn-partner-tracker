@@ -12,7 +12,7 @@ contract YearnPartnerTracker {
     using Address for address;
     using SafeMath for uint256;
 
-    event ReferredBalanceIncreased(address partnerId, address vault, address depositer, uint amountAdded, uint totalDeposited);
+    event ReferredBalanceIncreased(address indexed partnerId, address indexed vault, address indexed depositer, uint amountAdded, uint totalDeposited);
     mapping (address => mapping (address => mapping(address => uint256))) public referredBalance;
 
     function deposit(address vault, address partnerId) external returns (uint256){
