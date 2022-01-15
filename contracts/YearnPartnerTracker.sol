@@ -19,8 +19,6 @@ contract YearnPartnerTracker {
     event ReferredBalanceIncreased(address partnerId, address vault, address depositer, uint amountAdded, uint totalDeposited);
     mapping (address => mapping (address => mapping(address => uint256))) public referredBalance;
 
-    IYearnRegistry public constant registry = IYearnRegistry(0x50c1a2eA0a861A967D9d0FFE2AE4012c2E053804);
-
     function deposit(address vault, address partnerId) external returns (uint256){
         VaultAPI v = VaultAPI(vault);
         IERC20 want = IERC20(v.token());
