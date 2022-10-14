@@ -19,3 +19,10 @@ A second user deposits 10,000 DAI to the yvDAI vault through this contract speci
 A third user deposits 10,000 DAI to the yvDAI vault through this contract specifying partner A and receive 9,000 yvdai tokens back. Then one day later they deposit 10,000 DAI to the yvDAI vault through this contract specifying partner B and and receive 8,900 yvDAI tokens back. At this point partner A's balance from the user is 9,000 yvDAI and partner B is 8,900 yvDAI. 
 
 If the user now withdraws 5,000 yvDAI they will be left with 12,900 yvDAI. At this point partner A's balance from the user is 4,000 yvDAI and partner B is 8,900 yvDAI. This is because the total across all partners is 12,900 yvDAI and partners are filled last in first. 
+
+
+## Deployment addresses:
+Ethereum mainnet (1): `0x8ee392a4787397126C163Cb9844d7c447da419D8`  
+Optimism (10): `0x0000000000000000000000000000000000000000`  
+Fantom Opera (250): `0x086865B2983320b36C42E48086DaDc786c9Ac73B`  
+Arbitrum One (42161): `0x0000000000000000000000000000000000000000`  
