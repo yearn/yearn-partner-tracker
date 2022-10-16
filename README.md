@@ -25,4 +25,4 @@ If the user now withdraws 5,000 yvDAI they will be left with 12,900 yvDAI. At th
 Ethereum mainnet (1): `0x8ee392a4787397126C163Cb9844d7c447da419D8`  
 Optimism (10): `0x7E08735690028cdF3D81e7165493F1C34065AbA2`  
 Fantom Opera (250): `0x086865B2983320b36C42E48086DaDc786c9Ac73B`  
-Arbitrum One (42161): `0x0000000000000000000000000000000000000000`  
+Arbitrum One (42161): `0x0e5b46E4b2a05fd53F5a4cD974eb98a9a613bcb7`  
